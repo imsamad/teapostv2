@@ -40,9 +40,9 @@ app.use(cookieParser());
 app.use(currentUser);
 
 app.use("/api/v1/", routers);
-app.use(["/", "/health"], (_, res) => {
-  return res.json("Ok running! 123");
-});
+// app.use(["/", "/health"], (_, res) => {
+//   return res.json("Ok running! 123");
+// });
 
 app.use(() => {
   throw new NotFoundErrorMdlwr();
