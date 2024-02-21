@@ -6,7 +6,10 @@ import Confirmation, { CONFIRMATION_ENUM } from "../../models/Confirmation";
 import { sendEmail } from "../../lib/sendEmail";
 
 const register = async (req: Request, res: Response) => {
-  const user = await User.create(req.body);
+  const user = await User.create({
+    ...req.body,
+    isVerified: process.env.NODE_ENV != "production",
+  });
   const token = crypto.randomBytes(20).toString("hex");
 
   const hashedVerifyToken = crypto

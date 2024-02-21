@@ -6,6 +6,7 @@ import resetPassword from "./resetPassword";
 import changeEmail from "./changeEmail";
 import confirmChangedEmail from "./confirmChangedEmail";
 import forgotIdentifier from "./forgotIdentifier";
+import me from "./me";
 export {
   register,
   confirmRegistration,
@@ -15,4 +16,5 @@ export {
   changeEmail,
   confirmChangedEmail,
   forgotIdentifier,
+  me,
 };

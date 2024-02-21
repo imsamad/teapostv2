@@ -17,6 +17,7 @@ export const validateRequest =
       });
       return next();
     } catch (err: any) {
+      console.log("err", err);
       throw new ZodErrorHandler(err.format()[on]);
     }
   };

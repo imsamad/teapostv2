@@ -17,5 +17,6 @@ authRouter.post(`/confirm/changeEmail/:token`, authCtrls.confirmChangedEmail);
 authRouter.post(`/login`, authCtrls.login);
 
 authRouter.get(`/forgotIdentifier`, authCtrls.forgotIdentifier);
+authRouter.get(`/me`, requireAuth, authCtrls.me);
 
 export default authRouter;
