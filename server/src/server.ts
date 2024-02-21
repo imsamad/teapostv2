@@ -34,11 +34,10 @@ app.use(cookieParser());
 
 app.use(currentUser);
 
+app.use("/api/v1/", routers);
 app.use(["/", "/health"], (_, res) => {
   return res.json("Ok running!");
 });
-
-app.use("/api/v1/", routers);
 
 app.use(() => {
   throw new NotFoundErrorMdlwr();
