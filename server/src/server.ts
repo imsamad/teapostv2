@@ -34,6 +34,10 @@ app.use(cookieParser());
 
 app.use(currentUser);
 
+app.use(["/", "/health"], (_, res) => {
+  return res.json("Ok running!");
+});
+
 app.use("/api/v1/", routers);
 
 app.use(() => {

@@ -6,9 +6,4 @@ const routers = express();
 
 routers.use("/auth", authRouter);
 
-routers.get("/health", async (req, res) => {
-  // await sendEmail();
-  res.json("Ok running!");
-});
-
 export default routers;

@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 
 export const sendEmail = async (data?: any) => {
+  return true;
   const transporter = nodemailer.createTransport({
     host: "1.2.3.4",
     port: 465,
