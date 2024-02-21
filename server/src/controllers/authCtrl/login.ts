@@ -17,9 +17,10 @@ const payloadSchema = z.object({
 // @desc    Login
 // @route   POST Log in
 // @access  Public
+
 const login = async (req: Request, res: Response) => {
   const { password, identifier } = req.body;
-
+  // console.log("req.body: ", req.body);
   const user = await User.findOne({
     $or: [{ email: identifier }, { username: identifier }],
     // @ts-ignore

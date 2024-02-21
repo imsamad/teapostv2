@@ -17,7 +17,8 @@ export const validateRequest =
       });
       return next();
     } catch (err: any) {
-      console.log("err", err);
+      console.log("error from zod request validator: ", err);
+      console.log("req.body: ", req.body);
       throw new ZodErrorHandler(err.format()[on]);
     }
   };

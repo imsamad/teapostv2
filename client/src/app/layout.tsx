@@ -24,10 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={`max-w-screen w-screen min-h-screen overflow-hidden`}>
-        <Theme>
-          <Box>{children}</Box>
-        </Theme>
+      <body>
+        <Theme>{children}</Theme>
       </body>
     </html>
   );
