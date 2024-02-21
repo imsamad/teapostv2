@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "start": "NODE_ENV=production  && node .build/index",
+    "start": "node .build/index",
     "db:purge": "node scripts/purgeDB"
   },
   "keywords": [],
