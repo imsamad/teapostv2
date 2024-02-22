@@ -21,7 +21,9 @@ const payloadSchema = z.object({
 const login = async (req: Request, res: Response) => {
   const { password, identifier } = req.body;
   console.log("req.body: ", req.body);
-  console.log(await User.find());
+  console.log("process: ", process.env.MONGO_URI);
+
+  console.log("await User.find(): ", await User.find());
   const user = await User.findOne({
     $or: [{ email: identifier }, { username: identifier }],
     // @ts-ignore
