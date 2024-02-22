@@ -45,9 +45,11 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/v1/", routers);
-// app.use(["/", "/health"], (_, res) => {
-//   return res.json("Ok running! 123");
-// });
+
+app.get("/", (_, res) => {
+  console.log("I was hitted");
+  return res.json("Ok running! 123");
+});
 
 app.use(() => {
   throw new NotFoundErrorMdlwr();

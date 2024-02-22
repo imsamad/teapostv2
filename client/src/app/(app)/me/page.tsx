@@ -1,3 +1,4 @@
+import { isLoggedIn } from "@/app/(login)/authAction";
 import StoryForm from "./StoryForm";
 
 const page = () => {
@@ -5,7 +6,7 @@ const page = () => {
   return (
     <div>
       page
-      <StoryForm />
+      <StoryForm isLoggedIn={isLoggedIn} />
     </div>
   );
 };

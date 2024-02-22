@@ -60,8 +60,8 @@ export async function login(data: any) {
 export async function isLoggedIn() {
   return cookies().get(AUTHED_USER_SESSION)
     ? {
-        session: cookies().get(AUTHED_USER_SESSION),
-        user: cookies().get(AUTHED_USER_DETAILS),
+        session: cookies().get(AUTHED_USER_SESSION)?.value,
+        user: cookies().get(AUTHED_USER_DETAILS)?.value,
       }
     : null;
 }

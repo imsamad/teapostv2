@@ -2,12 +2,17 @@
 
 import { Button } from "@radix-ui/themes";
 
-const StoryForm = () => {
+const StoryForm = ({ isLoggedIn }: any) => {
   const submitForm = async () => {
     try {
+      const ck = await isLoggedIn();
+      console.log("ck", ck);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
         credentials: "include",
         mode: "cors",
+        headers: {
+          Authorization: `Bearer ${ck.session}`,
+        },
       });
 
       const data = await res.json();
