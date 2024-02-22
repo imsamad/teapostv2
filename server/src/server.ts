@@ -38,7 +38,11 @@ app.use(
 app.use(cookieParser());
 
 app.use(currentUser);
-
+app.use((req, res, next) => {
+  console.log("req.body: ", req.body);
+  console.log("req.cookies(): ", req.cookies());
+  next();
+});
 app.use("/api/v1/", routers);
 // app.use(["/", "/health"], (_, res) => {
 //   return res.json("Ok running! 123");
