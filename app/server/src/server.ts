@@ -15,6 +15,8 @@ const app = express();
 app.set("trust proxy", true);
 app.enable("trust proxy");
 
+app.disable("x-powered-by");
+
 app.use(express.json());
 app.use(express.text());
 app.use(

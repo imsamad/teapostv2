@@ -1,14 +1,18 @@
 {
   "name": "teapost",
   "version": "1.0.0",
+  "private": true,
   "workspaces": [
-    "apps/*",
+    "app/*",
     "packages/*"
   ],
   "scripts": {
     "dev": "turbo dev",
     "start": "turbo start",
     "build": "turbo build"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "packageManager": "npm@10.2.4"
 }
