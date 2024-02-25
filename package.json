@@ -1,0 +1,14 @@
+{
+  "name": "teapost",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "start": "turbo start",
+    "build": "turbo build"
+  },
+  "packageManager": "npm@10.2.4"
+}

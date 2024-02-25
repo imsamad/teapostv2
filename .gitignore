@@ -11,9 +11,12 @@ node_modules
 /coverage
 
 # next.js
+.next
 /.next/
+/.next
+.next/
 /out/
-
+.turbo
 # production
 build/**
 build

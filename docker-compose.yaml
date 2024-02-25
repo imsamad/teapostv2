@@ -1,0 +1,61 @@
+services:
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongo_val:/data/db
+    networks:
+      - app_network
+
+  backend:
+    build:
+      context: ./server
+      target: dev
+    restart: unless-stopped
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/teapostv3
+    env_file:
+      - ./server/.env
+
+    command: npm run dev
+    volumes:
+      - ./server/:/app
+    depends_on:
+      - mongodb
+    networks:
+      - app_network
+
+  client:
+    build:
+      context: ./client
+      target: dev
+    restart: always
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/teapostv3
+
+    command: npm run dev
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+volumes:
+  mongo_val:
+
+networks:
+  app_network:
+    driver: bridge
