@@ -13,6 +13,7 @@ export interface IUser {
   password: string;
   isVerified: boolean;
   isBlocked: boolean;
+  role: "user" | "admin";
 }
 
 interface IUserStaticMeth {
@@ -41,9 +42,9 @@ const userSchema = new mongoose.Schema(
 
     username: {
       type: String,
-      // required: [true, "Username is compulsory."],
-      // unique: true,
-      // minlength: [4, "Username's minimum length must be 4."],
+      required: [true, "Username is compulsory."],
+      unique: true,
+      minlength: [4, "Username's minimum length must be 4."],
     },
     fullName: {
       type: String,
@@ -63,6 +64,16 @@ const userSchema = new mongoose.Schema(
     isBlocked: {
       type: Boolean,
       default: false,
+    },
+
+    stories: {
+      type: Number,
+      default: 0,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
   },
   {
@@ -111,7 +122,6 @@ userSchema.post(
     doc: UserDoc,
     next: CallbackWithoutResultAndOptionalError
   ) {
-    console.log("xnjasdcdkjcn");
     next(new MongooseValidationError(error));
   }
 );

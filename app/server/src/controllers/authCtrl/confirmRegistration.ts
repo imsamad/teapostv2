@@ -4,6 +4,8 @@ import crypto from "crypto";
 import { BadRequestError } from "../../lib/bad-request-error";
 import User from "../../models/User";
 
+// import { setAuthCookiesAndReturnResponse } from "../../lib/jwt-utils";
+
 // @desc    Confirm registration
 // @route   GET /auth/confirmation/:token
 // @access  Public
@@ -30,8 +32,13 @@ const confirmRegistration = async (req: Request, res: Response) => {
   await user.save();
   await confirmation.deleteOne();
   res.json({
-    message: "Confirmed successfully, log in from website!",
+    message: "Confirmed successfully!",
   });
+  // return setAuthCookiesAndReturnResponse({
+  //   id: user._id.toString(),
+  //   res,
+  //   user,
+  // });
 };
 
 export default confirmRegistration;

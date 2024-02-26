@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { NotAuthorisedError } from "../lib/not-authorised";
 
-export const requireAuth = (
+export const requireAuthError = (
   req: Request,
   res: Response,
   next: NextFunction

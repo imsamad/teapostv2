@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["shared"],
   async redirects() {
     return [
       {
@@ -23,6 +24,17 @@ const nextConfig = {
           },
         ],
 
+        permanent: false,
+        destination: "/me",
+      },
+      {
+        source: "/auth/confirm/registration/:token",
+        has: [
+          {
+            type: "cookie",
+            key: "auth-session",
+          },
+        ],
         permanent: false,
         destination: "/me",
       },

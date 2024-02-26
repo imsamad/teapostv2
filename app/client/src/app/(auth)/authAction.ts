@@ -39,6 +39,14 @@ export async function postLogin(data: any) {
           maxAge: 5 * 60 * 1000,
         }
       );
+
+    if (data.session)
+      cookies().set(process.env.AUTHED_USER_SESSION!, data.session, {
+        httpOnly: process.env.NODE_ENV == "production",
+        sameSite: "strict",
+        secure: process.env.NODE_ENV == "production",
+        maxAge: 5 * 60 * 1000,
+      });
     return data;
   } catch (err) {
     console.error(err);

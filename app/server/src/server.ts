@@ -45,7 +45,7 @@ app.use(cookieParser());
 
 app.use(currentUser);
 
-app.use("/api/v1/", routers);
+app.use(process.env.VERSION!, routers);
 
 app.get("/", (_, res) => {
   return res.json("Ok running!");

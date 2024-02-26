@@ -12,5 +12,9 @@
   "license": "ISC",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "mongoose": "^8.2.0",
+    "zod": "^3.22.4"
   }
 }

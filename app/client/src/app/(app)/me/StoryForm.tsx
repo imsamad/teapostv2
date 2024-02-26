@@ -9,8 +9,6 @@ const StoryForm = () => {
       const res = await fetchClient(`/auth/me`);
 
       const data = await res.json();
-
-      console.log("1: ", data);
     } catch (err) {
       console.log(err);
     }

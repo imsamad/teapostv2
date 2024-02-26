@@ -10,15 +10,6 @@ export class ZodErrorHandler extends CustomError {
   }
 
   serializeErrors() {
-    let errors = this.errors;
-
-    let tmpErr: any = {};
-
-    for (let k in errors) {
-      if (k == "_errors") continue;
-      tmpErr[k] = errors[k]._errors;
-    }
-
-    return tmpErr;
+    return this.errors;
   }
 }

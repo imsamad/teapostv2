@@ -1,17 +1,19 @@
 import Navbar from "@/components/Navbar";
-import { Box, ScrollArea } from "@radix-ui/themes";
+import { Box, Container, ScrollArea } from "@radix-ui/themes";
 import React from "react";
 
 const GenericLayout = ({
   children,
   showRightBtns,
+  showSearch,
 }: {
   children: React.ReactNode;
   showRightBtns: boolean;
+  showSearch: boolean;
 }) => {
   return (
     <Box className="max-w-screen w-screen max-h-screen overflow-hidden h-full  flex flex-col">
-      <Navbar showRightBtns={showRightBtns} />
+      <Navbar />
       <ScrollArea
         type="auto"
         scrollbars="vertical"
@@ -19,9 +21,9 @@ const GenericLayout = ({
           minHeight: "100%",
           height: "100%",
         }}
-        className="flex-1 h-full p-4 pb-2"
+        className="flex-1 h-full"
       >
-        {children}
+        <Container className="p-2">{children}</Container>
       </ScrollArea>
     </Box>
   );

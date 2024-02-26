@@ -4,10 +4,17 @@ import crypto from "crypto";
 import User from "../../models/User";
 import Confirmation, { CONFIRMATION_ENUM } from "../../models/Confirmation";
 import { sendEmail } from "../../lib/sendEmail";
+import { validateRequest } from "../../middlewares/validate-request";
+import { UserRegisterSchema } from "shared";
 
 const register = async (req: Request, res: Response) => {
   const user = await User.create({
     ...req.body,
+    username:
+      req.body.username ||
+      `${req.body.fullName.split(" ").join("")}-${Math.random()
+        .toString()
+        .slice(2)}`,
     isVerified: process.env.NODE_ENV != "production",
   });
 
@@ -24,9 +31,7 @@ const register = async (req: Request, res: Response) => {
     token: hashedVerifyToken,
   });
 
-  const redirectUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/auth/confirm/registration/${token}`;
+  const redirectUrl = `${process.env.CLIENT_API}/auth/confirm/registration/${token}`;
 
   const resObj: any = {
     message: "Confirmation email sent!",
@@ -41,4 +46,5 @@ const register = async (req: Request, res: Response) => {
   res.status(200).json(resObj);
 };
 
-export default register;
+export default [validateRequest(UserRegisterSchema, "body"), register];
+// export default register;

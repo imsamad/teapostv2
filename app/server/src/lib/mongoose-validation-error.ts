@@ -11,28 +11,37 @@ export class MongooseValidationError extends CustomError {
   }
 
   serializeErrors() {
-    // To handle duplicated/unique values
     if (this.errors.code === 11000) {
       const field = Object.keys(this.errors.keyValue)[0] || "";
       const value = this.errors?.keyValue?.[field];
       return [
         {
-          field: field,
-          message: value ? value + " Already taken." : "It must be unique.",
+          [field]: [value ? value + " already taken." : "It must be unique."],
         },
       ];
     }
 
-    let err: any = [];
+    let err: any = {};
     for (let path in this.errors.errors) {
-      err.push({
-        field: path,
-        message:
-          this.errors?.errors?.[path]?.["message"] ||
+      if (!err[path]) err[path] = [];
+      err[path].push(
+        this.errors?.errors?.[path]?.["message"] ||
           this.errors[path]?.message ||
-          "Invalid Value",
-      });
+          "Invalid value"
+      );
     }
+    return err;
+    // let err: any = [];
+    // for (let path in this.errors.errors) {
+    //   // if (!err[path]) err[path] = [];
+    //   err.push({
+    //     field: path,
+    //     message:
+    //       this.errors?.errors?.[path]?.["message"] ||
+    //       this.errors[path]?.message ||
+    //       "Invalid value",
+    //   });
+    // }
     return err;
   }
 }

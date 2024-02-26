@@ -10,6 +10,6 @@ export class NotFoundErrorMdlwr extends CustomError {
   }
 
   serializeErrors() {
-    return [{ message: "Not Found" }];
+    return { message: "Not Found" };
   }
 }

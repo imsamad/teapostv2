@@ -3,23 +3,27 @@ import express from "express";
 import * as authCtrls from "../controllers/authCtrl";
 import { requireAuth } from "../middlewares/auth";
 
-const authRouter = express();
+const authRtr = express.Router();
 
-authRouter.post(`/register`, authCtrls.register);
-authRouter.post(`/confirm/registration/:token`, authCtrls.confirmRegistration);
+authRtr.post(`/register`, authCtrls.register);
+authRtr.post(`/confirm/registration/:token`, authCtrls.confirmRegistration);
 
-authRouter.post(`/forgotPassword`, authCtrls.forgotPassword);
-authRouter.post(`/confirm/resetPassword/:token`, authCtrls.resetPassword);
+authRtr.post(`/forgotPassword`, authCtrls.forgotPassword);
+authRtr.post(`/confirm/resetPassword/:token`, authCtrls.resetPassword);
 
-authRouter.post(`/changeEmail`, requireAuth, authCtrls.changeEmail);
-authRouter.post(`/confirm/changeEmail/:token`, authCtrls.confirmChangedEmail);
+authRtr.post(`/changeEmail`, requireAuth, authCtrls.changeEmail);
+authRtr.post(`/confirm/changeEmail/:token`, authCtrls.confirmChangedEmail);
 
-authRouter.post(`/login`, authCtrls.login);
+authRtr.route(`/login`).get(authCtrls.login).post(authCtrls.login);
 
-authRouter.get(`/forgotIdentifier`, authCtrls.forgotIdentifier);
-authRouter.get(`/me`, requireAuth, authCtrls.me);
-authRouter.get(`/`, (_, res) => {
+authRtr.get(`/forgotIdentifier`, authCtrls.forgotIdentifier);
+authRtr.get(`/me`, requireAuth, authCtrls.me);
+
+authRtr.get(`/ctrl1`, authCtrls.ctrl1);
+authRtr.get(`/ctrl2`, authCtrls.ctrl2);
+
+authRtr.get(`/`, (_, res) => {
   res.send("running");
 });
 
-export default authRouter;
+export default authRtr;

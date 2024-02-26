@@ -1,3 +1,2 @@
-export const hello = () => {
-  console.log("hello from workspace");
-};
+export * from "./endpoints/auth";
+export * from "./endpoints/story";

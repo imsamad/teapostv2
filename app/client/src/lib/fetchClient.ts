@@ -20,6 +20,7 @@ const fetchClient = async (
           let authSession = headers
             .cookies()
             .get(process.env.AUTHED_USER_SESSION)?.value;
+
           reqOptions.headers = {
             ...reqOptions.headers,
             Authorization: `Bearer ${authSession}`,
@@ -29,8 +30,8 @@ const fetchClient = async (
     }
   } catch (err) {
   } finally {
-    // return reqOptions;
     reqOptions.credentials = "include";
+
     return fetch(url, reqOptions);
   }
 };
