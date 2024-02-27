@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "app/*",
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
@@ -14,5 +14,8 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@10.2.4"
+  "packageManager": "npm@10.2.4",
+  "devDependencies": {
+    "turbo": "^1.12.4"
+  }
 }
