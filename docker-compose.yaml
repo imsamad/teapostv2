@@ -10,8 +10,7 @@ services:
 
   backend:
     build:
-      context: ./server
-      target: dev
+      context: ./server/
     restart: unless-stopped
     environment:
       - MONGO_URI=mongodb://mongodb:27017/teapostv3

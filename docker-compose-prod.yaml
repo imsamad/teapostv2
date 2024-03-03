@@ -1,35 +1,29 @@
 services:
   mongodb:
-    image: mongo:latest
+    image: imsamad/teapostv2_nginx:1.0.0
     volumes:
       - mongo_val:/data/db
     networks:
       - app_network
 
   backend:
-    build:
-      context: ./server
-      target: prod
+    image: imsamad/teapostv2_backend:1.0.0
     restart: unless-stopped
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/teapostv3
+      - MONGO_URI=mongodb://mongodb:27017/teapost
     env_file:
       - ./server/.env
     command: npm start
-    volumes:
-      - ./server/:/app
     depends_on:
       - mongodb
     networks:
       - app_network
 
   client:
-    build:
-      context: ./client
-      target: prod
+    image: imsamad/teapostv2_client:1.0.0
     restart: always
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/teapostv3
+      - MONGO_URI=mongodb://mongodb:27017/teapost
     env_file:
       - ./client/.env
 
@@ -39,8 +33,7 @@ services:
       - app_network
 
   nginx:
-    build:
-      context: ./nginx
+    image: imsamad/teapostv2_nginx:1.0.0
     ports:
       - 80:80
     restart: always
