@@ -6,9 +6,13 @@ import resetPassword from "./resetPassword";
 import changeEmail from "./changeEmail";
 import confirmChangedEmail from "./confirmChangedEmail";
 import forgotIdentifier from "./forgotIdentifier";
+import updateProfile from "./updateProfile";
+import changePassword from "./changePassword";
+import deleteAccount from "./deleteAccount";
 import me from "./me";
 import ctrl1 from "./ctrl1";
 import ctrl2 from "./ctrl2";
+
 export {
   register,
   confirmRegistration,
@@ -21,4 +25,7 @@ export {
   me,
   ctrl1,
   ctrl2,
+  updateProfile,
+  changePassword,
+  deleteAccount,
 };

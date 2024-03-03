@@ -20,7 +20,7 @@ const ToastTP = ({
     // @ts-ignore
     timerRef.current = setTimeout(() => {
       // toggle(false);
-    }, 3000);
+    }, 2000);
     return () => clearTimeout(timerRef.current);
   }, []);
 
@@ -38,7 +38,7 @@ const ToastTP = ({
           {subtitle ? <Toast.Description>{subtitle}</Toast.Description> : null}
         </Box>
         <Toast.Action asChild altText="Goto schedule to undo">
-          <IconButton className="cursor-pointer" size="2">
+          <IconButton className="cursor-pointer" variant="outline" size="2">
             <Cross1Icon />
           </IconButton>
         </Toast.Action>

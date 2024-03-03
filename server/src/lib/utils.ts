@@ -4,3 +4,6 @@ export const readingTime = (content: string) => {
   const time = Math.ceil(words / wpm);
   return time;
 };
+export function getRndInteger(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}

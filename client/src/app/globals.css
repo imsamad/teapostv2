@@ -5,6 +5,13 @@
 .radix-themes {
   --default-font-family: var(--font-inter);
 }
+button {
+  cursor: pointer !important;
+}
+
+button:hover {
+  @apply shadow-sm transition-shadow duration-500 outline-2 outline-indigo-800;
+}
 
 .log {
   @apply border-2 border-red-300;

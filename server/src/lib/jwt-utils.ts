@@ -1,11 +1,12 @@
 import { Response } from "express";
 import jwt from "jsonwebtoken";
+import Profile from "../models/Profile";
 
 export const encodeJwt = (data: any) => {
   return jwt.sign(data, process.env.JWT_KEY!);
 };
 
-export const setAuthCookiesAndReturnResponse = ({
+export const setAuthCookiesAndReturnResponse = async ({
   id,
   res,
   user,
@@ -23,7 +24,15 @@ export const setAuthCookiesAndReturnResponse = ({
     sameSite: "strict",
   });
 
-  return res.json({ user, session });
+  return res.json({
+    user,
+    session,
+    profile: await Profile.findByIdAndUpdate(
+      id,
+      {},
+      { new: true, upsert: true }
+    ),
+  });
 };
 
 export const decodeJwt = () => {};

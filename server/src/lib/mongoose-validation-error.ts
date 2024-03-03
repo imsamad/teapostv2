@@ -14,11 +14,9 @@ export class MongooseValidationError extends CustomError {
     if (this.errors.code === 11000) {
       const field = Object.keys(this.errors.keyValue)[0] || "";
       const value = this.errors?.keyValue?.[field];
-      return [
-        {
-          [field]: [value ? value + " already taken." : "It must be unique."],
-        },
-      ];
+      return {
+        [field]: [value ? value + " already taken." : "It must be unique."],
+      };
     }
 
     let err: any = {};

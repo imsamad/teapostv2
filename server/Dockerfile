@@ -1,9 +1,14 @@
-FROM node
+FROM node as base
 WORKDIR /app
-COPY package.json .
-# COPY package-lock.json .
-RUN npm i
+COPY package*.json .
+RUN npm install
 COPY . .
-RUN npm run build
 
+FROM base as dev
+WORKDIR /app
+CMD npm run dev
+
+FROM base as prod
+WORKDIR /app
+RUN npm run build
 CMD npm start

@@ -3,6 +3,9 @@
 import TPButton from "@/components/TPButton";
 import TPInput from "@/components/TPInput";
 import fetchClient from "@/lib/fetchClient";
+import { setProfileLocalStorage } from "@/lib/profileLocalStorageClient";
+import { TProfileSchema } from "@/shared-lib/endpoints/profile";
+import { TUserSchema } from "@/shared-lib/endpoints/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Heading } from "@radix-ui/themes";
 import Link from "next/link";
@@ -25,7 +28,7 @@ const AuthForm = ({ postLogin }: any) => {
     mode: "all",
     values: {
       identifier: "imsamad00@gmail.com",
-      password: "password",
+      password: "Password@1206",
     },
   });
 
@@ -39,17 +42,20 @@ const AuthForm = ({ postLogin }: any) => {
         },
       });
 
-      const resData = await res.json();
+      const resData: { user: TUserSchema; profile: TProfileSchema } =
+        await res.json();
 
       if (res.ok) {
         await postLogin(resData);
-
+        await setProfileLocalStorage(resData.profile);
         const redirectTo = searchParams.get("redirectTo");
         router.push(redirectTo || "/me");
         return;
       }
 
+      // @ts-ignore
       const identifierError = resData?.errors?.identifier;
+      // @ts-ignore
       const passwordError = resData?.errors?.password;
       if (identifierError)
         setError("identifier", {

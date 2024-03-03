@@ -8,6 +8,10 @@ const authRtr = express.Router();
 authRtr.post(`/register`, authCtrls.register);
 authRtr.post(`/confirm/registration/:token`, authCtrls.confirmRegistration);
 
+authRtr.put(`/update`, authCtrls.updateProfile);
+authRtr.put(`/changePassword`, authCtrls.updateProfile);
+authRtr.delete(`/`, authCtrls.deleteAccount);
+
 authRtr.post(`/forgotPassword`, authCtrls.forgotPassword);
 authRtr.post(`/confirm/resetPassword/:token`, authCtrls.resetPassword);
 

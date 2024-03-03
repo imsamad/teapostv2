@@ -5,11 +5,16 @@ import Link from "next/link";
 import AuthBtns from "./AuthBtns";
 import Search from "./Search";
 
-const Navbar = async () => {
+const Navbar = async (heights: any) => {
   const loggedUser = await getAuthUser();
 
   return (
-    <Box className="text-gray-800 border-b-2 border-gray-300 shadow-sm ">
+    <Box
+      className={
+        "text-gray-800 border-b-2 border-gray-300 shadow-sm flex items-center "
+        // + heights.navbar
+      }
+    >
       <Container className="p-2">
         <Box className={`flex gap-2  md:flex-row items-center justify-between`}>
           <Heading size="7" className="order-1">

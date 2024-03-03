@@ -5,6 +5,8 @@ services:
       - mongo_val:/data/db
     networks:
       - app_network
+    ports:
+      - 27017:27017
 
   backend:
     build:
@@ -15,7 +17,8 @@ services:
       - MONGO_URI=mongodb://mongodb:27017/teapostv3
     env_file:
       - ./server/.env
-
+    ports:
+      - 4000:4000
     command: npm run dev
     volumes:
       - ./server/:/app
@@ -31,23 +34,17 @@ services:
     restart: always
     environment:
       - MONGO_URI=mongodb://mongodb:27017/teapostv3
+      - NODE_ENV=development
+    env_file:
+      - ./client/.env
 
     command: npm run dev
     volumes:
       - ./client:/app
-      - /app/node_modules
-      - /app/.next
-    depends_on:
-      - backend
-    networks:
-      - app_network
-
-  nginx:
-    build:
-      context: ./nginx
+      # - /app/node_modules
     ports:
-      - 80:80
-    restart: always
+      - 3000:3000
+
     depends_on:
       - backend
     networks:

@@ -3,6 +3,7 @@ import Confirmation, { CONFIRMATION_ENUM } from "../../models/Confirmation";
 import crypto from "crypto";
 import { BadRequestError } from "../../lib/bad-request-error";
 import User from "../../models/User";
+import Profile from "../../models/Profile";
 
 // import { setAuthCookiesAndReturnResponse } from "../../lib/jwt-utils";
 
@@ -31,6 +32,7 @@ const confirmRegistration = async (req: Request, res: Response) => {
   user.isVerified = true;
   await user.save();
   await confirmation.deleteOne();
+  await Profile.create({ _id: user._id });
   res.json({
     message: "Confirmed successfully!",
   });

@@ -3,12 +3,14 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import { NotFoundErrorMdlwr } from "./middlewares/not-found-mdlwr";
 import { errorHandler } from "./middlewares/error-handler-mdlwr";
 import routers from "./routers";
 import { errorLogger } from "./middlewares/error-logger";
 import { currentUser } from "./middlewares/auth";
+import fileUpload from "express-fileupload";
 
 const app = express();
 
@@ -22,6 +24,14 @@ app.use(express.text());
 app.use(
   express.urlencoded({
     extended: true,
+  })
+);
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+    limits: { fileSize: Number(process.env.MAX_ASSET_SIZE) },
+    createParentPath: true,
   })
 );
 
@@ -44,6 +54,8 @@ app.use(
 app.use(cookieParser());
 
 app.use(currentUser);
+
+app.use("/assets", express.static(path.join(process.cwd(), "/public/assets")));
 
 app.use(process.env.VERSION!, routers);
 

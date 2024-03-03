@@ -1,4 +1,10 @@
-import mongoose, { CallbackWithoutResultAndOptionalError } from "mongoose";
+import mongoose, {
+  CallbackWithoutResultAndOptionalError,
+  Document,
+  HydratedDocument,
+  Model,
+  QueryWithHelpers,
+} from "mongoose";
 
 import { MongooseValidationError } from "../lib/mongoose-validation-error";
 import User from "./User";
@@ -16,9 +22,13 @@ const storySchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    subtitle: {
+      type: String,
+      trim: true,
+    },
     slug: {
       type: String,
-      requried: [true, "Slug is required"],
+      required: [true, "Slug is required"],
       unique: true,
     },
     posterImage: String,
@@ -30,6 +40,7 @@ const storySchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+
     isPublished: {
       type: Boolean,
       default: false,
@@ -48,6 +59,7 @@ const storySchema = new mongoose.Schema(
     tags: {
       type: [
         {
+          // @ts-ignore
           type: mongoose.Schema.Types.ObjectId,
           ref: "Tag",
         },
@@ -64,14 +76,17 @@ const storySchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+
     noOfComments: {
       type: Number,
       default: 0,
     },
+
     noOfLikes: {
       type: Number,
       default: 0,
     },
+
     noOfDislikes: {
       type: Number,
       default: 0,
@@ -80,21 +95,11 @@ const storySchema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
-      transform: function (_doc: any, ret: any) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-      },
       virtuals: true,
     },
   }
 );
-
-interface StorySchemaDoc extends TStorySchema, mongoose.Document {
-  isPublished: boolean;
-  isPublishedByAdmin: boolean;
-  hadEmailedToFollowers: boolean;
-}
+interface StorySchemaDoc extends TStorySchema {}
 
 storySchema.post(
   "save",
@@ -112,28 +117,23 @@ storySchema.pre(
   "save",
   async function (next: CallbackWithoutResultAndOptionalError) {
     // @ts-ignore
+    this.tags = [...new Set(this.tags.map((t) => t.toString()))];
+
+    // @ts-ignore
     if (!this.isNew) return next();
     // @ts-ignore
-
     const author = await User.findById(this.author);
     if (!author)
       return new BadRequestError({
         message: "Not authorised",
       });
+
     // @ts-ignore
     author.stories = author.stories + 1;
     await author.save();
     next();
   }
 );
-
-// @ts-ignore
-storySchema.pre("remove", async function (next) {
-  // @ts-ignore
-  await User.findByIdAndUpdate(this.author, {
-    $inc: { stories: -1 },
-  });
-});
 
 storySchema.pre("deleteOne", { document: true }, async function (next) {
   // @ts-ignore

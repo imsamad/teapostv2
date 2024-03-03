@@ -14,6 +14,7 @@ export interface IUser {
   isVerified: boolean;
   isBlocked: boolean;
   role: "user" | "admin";
+  profilePic?: string;
 }
 
 interface IUserStaticMeth {
@@ -34,12 +35,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Email is compulsory."],
       unique: true,
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please add a valid email",
-      ],
+      // match: [
+      //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      //   "Please add a valid email",
+      // ],
     },
-
+    profilePic: {
+      type: String,
+    },
     username: {
       type: String,
       required: [true, "Username is compulsory."],

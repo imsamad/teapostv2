@@ -1,14 +1,10 @@
 import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
 import User from "../../models/User";
 import { BadRequestError } from "../../lib/bad-request-error";
 import { validateRequest } from "../../middlewares/validate-request";
 
-import {
-  encodeJwt,
-  setAuthCookiesAndReturnResponse,
-} from "../../lib/jwt-utils";
+import { setAuthCookiesAndReturnResponse } from "../../lib/jwt-utils";
 import { LoginSchema } from "../../shared-lib";
 
 // @desc    Login
@@ -37,7 +33,11 @@ const login = async (req: Request, res: Response) => {
       password: "Invalid password!",
     });
 
-  return setAuthCookiesAndReturnResponse({ id: user._id, res, user });
+  return setAuthCookiesAndReturnResponse({
+    id: user._id,
+    res,
+    user,
+  });
 };
 
 export default [validateRequest(LoginSchema, "body"), login];

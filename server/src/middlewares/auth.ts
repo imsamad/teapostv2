@@ -41,3 +41,9 @@ export const requireAuth = (req: Request, _: Response, next: NextFunction) => {
   if (!req.currentUser?.id) throw new NotAuthorisedError();
   next();
 };
+
+export const requireAdmin = (req: Request, _: Response, next: NextFunction) => {
+  if (!req.currentUser?.id || !req.currentUser.isAdmin)
+    throw new NotAuthorisedError();
+  next();
+};

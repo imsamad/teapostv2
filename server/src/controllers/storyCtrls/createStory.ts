@@ -11,8 +11,9 @@ const createStory = async (req: Request, res: Response) => {
   const author = req.currentUser!.id;
 
   const storyExist = await Story.findOne({
-    $or: [{ slug: req.body.slug }],
+    slug: req.body.slug,
   });
+
   // @ts-ignore
   if (storyExist && author == storyExist.author)
     return res.json({
@@ -24,4 +25,4 @@ const createStory = async (req: Request, res: Response) => {
   res.json(story);
 };
 
-export default [validateRequest(LooseStorySchema, "body"), createStory];
+export default [validateRequest(LooseStorySchema(true), "body"), createStory];

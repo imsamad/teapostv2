@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { CallbackWithoutResultAndOptionalError } from "mongoose";
+import { MongooseValidationError } from "../lib/mongoose-validation-error";
 
 interface Tag {
   title: string;
@@ -27,6 +29,17 @@ const tagSchema = new mongoose.Schema(
       },
       virtuals: true,
     },
+  }
+);
+
+tagSchema.post(
+  "save",
+  async function postSaveErrorHandler(
+    error: any,
+    doc: TagDoc,
+    next: CallbackWithoutResultAndOptionalError
+  ) {
+    next(new MongooseValidationError(error));
   }
 );
 

@@ -3,7 +3,7 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/me",
+        source: "/me/:path*",
         missing: [
           {
             type: "cookie",
@@ -52,6 +52,23 @@ const nextConfig = {
     ];
   },
   output: "standalone",
+  reactStrictMode: false,
+  rewrites: async () => {
+    return [
+      {
+        source: "/xx/:path",
+        destination: "/author",
+      },
+    ];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

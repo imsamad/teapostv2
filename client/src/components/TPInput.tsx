@@ -17,13 +17,14 @@ const TPInput = ({
   error?: string;
 }) => {
   const [show, setShow] = useState(false);
+
   return (
     <Box className="w-full">
-      <Text size="2">{label}</Text>
-      <TextField.Root size="2">
+      <Text size="3">{label}</Text>
+      <TextField.Root size="3">
         <TextField.Input
           placeholder={placeholder}
-          size="1"
+          size="2"
           type={type == "password" ? (show ? "text" : type) : type}
           {...register}
         />

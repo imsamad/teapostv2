@@ -9,14 +9,17 @@ import Theme from "./Theme";
 
 const AuthBtns = ({ loggedUser, logout }: any) => {
   const pathname = usePathname();
-  console.log("pathname: ", pathname);
+
   const include = ["/login", "/register", "/auth/confirm"].filter((path) =>
     pathname.startsWith(path)
   ).length;
 
-  console.log("include: ", include);
   if (include) {
-    return <></>;
+    return (
+      <Box className="order-2">
+        <Theme />
+      </Box>
+    );
   }
   return (
     <>
@@ -46,6 +49,9 @@ const AuthBtns = ({ loggedUser, logout }: any) => {
             <>
               <LogoutBtn logout={logout} />
               <Write />
+              <Button asChild>
+                <Link href="/me">Profile</Link>
+              </Button>
             </>
           )}
         </Flex>
