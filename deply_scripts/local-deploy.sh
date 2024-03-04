@@ -1,0 +1,1 @@
+ssh -t -i "cert-file.cert" ubuntu@ec2-url "sudo bash ~/deploy.sh"

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npx tsc",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "seeder:i": "ts-node-dev --respawn --transpile-only src/seeder/index.ts",
+    "seeder:i": "ts-node-dev src/seeder/index.ts",
+    "seeder:d": "ts-node-dev src/seeder/__purge.ts",
     "start": "node dist/index",
     "db:purge": "node scripts/purgeDB",
     "tag:create": "node scripts/tagCreate.js",

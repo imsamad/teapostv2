@@ -32,8 +32,8 @@ const create = async () => {
   }
 };
 
+console.log(process.env.argv);
+
 mongoose.connect(process.env.MONGO_URI!).finally(async () => {
-  //    if(process.env.argv[2])
   create();
-  // console.log(await generateStories(10));
 });
