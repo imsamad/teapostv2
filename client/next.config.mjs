@@ -3,69 +3,69 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/me/:path*",
+        source: '/me/:path*',
         missing: [
           {
-            type: "cookie",
-            key: "auth-session",
+            type: 'cookie',
+            key: 'AUTHED_USER_SESSION',
           },
         ],
 
         permanent: false,
-        destination: "/login",
+        destination: '/login',
       },
       {
-        source: "/register",
+        source: '/register',
         has: [
           {
-            type: "cookie",
-            key: "auth-session",
+            type: 'cookie',
+            key: 'AUTHED_USER_SESSION',
           },
         ],
 
         permanent: false,
-        destination: "/me",
+        destination: '/me',
       },
       {
-        source: "/auth/confirm/registration/:token",
+        source: '/auth/confirm/registration/:token',
         has: [
           {
-            type: "cookie",
-            key: "auth-session",
+            type: 'cookie',
+            key: 'AUTHED_USER_SESSION',
           },
         ],
         permanent: false,
-        destination: "/me",
+        destination: '/me',
       },
       {
-        source: "/login",
+        source: '/login',
         has: [
           {
-            type: "cookie",
-            key: "auth-session",
+            type: 'cookie',
+            key: 'AUTHED_USER_SESSION',
           },
         ],
 
         permanent: false,
-        destination: "/me",
+        destination: '/me',
       },
     ];
   },
-  output: "standalone",
+  output: 'standalone',
   reactStrictMode: false,
   rewrites: async () => {
     return [
       {
-        source: "/xx/:path",
-        destination: "/author",
+        source: '/xx/:path',
+        destination: '/author',
       },
     ];
   },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
       },
     ],
   },

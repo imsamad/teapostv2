@@ -4,19 +4,19 @@ import mongoose, {
   HydratedDocument,
   Model,
   QueryWithHelpers,
-} from "mongoose";
+} from 'mongoose';
 
-import { MongooseValidationError } from "../lib/mongoose-validation-error";
-import User from "./User";
-import { BadRequestError } from "../lib/bad-request-error";
-import { TStorySchema } from "../shared-lib";
+import { MongooseValidationError } from '../lib/mongoose-validation-error';
+import User from './User';
+import { BadRequestError } from '../lib/bad-request-error';
+import { TStorySchema } from '../shared-lib';
 
 const storySchema = new mongoose.Schema(
   {
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Author is required"],
+      ref: 'User',
+      required: [true, 'Author is required'],
     },
     title: {
       type: String,
@@ -28,7 +28,7 @@ const storySchema = new mongoose.Schema(
     },
     slug: {
       type: String,
-      required: [true, "Slug is required"],
+      required: [true, 'Slug is required'],
       unique: true,
     },
     posterImage: String,
@@ -61,7 +61,7 @@ const storySchema = new mongoose.Schema(
         {
           // @ts-ignore
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Tag",
+          ref: 'Tag',
         },
       ],
     },
@@ -102,7 +102,7 @@ const storySchema = new mongoose.Schema(
 interface StorySchemaDoc extends TStorySchema {}
 
 storySchema.post(
-  "save",
+  'save',
   async function postSaveErrorHandler(
     error: any,
     doc: StorySchemaDoc,
@@ -114,7 +114,7 @@ storySchema.post(
 
 storySchema.pre(
   // @ts-ignore
-  "save",
+  'save',
   async function (next: CallbackWithoutResultAndOptionalError) {
     // @ts-ignore
     this.tags = [...new Set(this.tags.map((t) => t.toString()))];
@@ -125,7 +125,7 @@ storySchema.pre(
     const author = await User.findById(this.author);
     if (!author)
       return new BadRequestError({
-        message: "Not authorised",
+        message: 'Not authorised',
       });
 
     // @ts-ignore
@@ -135,7 +135,7 @@ storySchema.pre(
   }
 );
 
-storySchema.pre("deleteOne", { document: true }, async function (next) {
+storySchema.pre('deleteOne', { document: true }, async function (next) {
   // @ts-ignore
   await User.findByIdAndUpdate(this.author, {
     $inc: { stories: -1 },
@@ -143,6 +143,6 @@ storySchema.pre("deleteOne", { document: true }, async function (next) {
   next();
 });
 
-const Story = mongoose.model<StorySchemaDoc>("Story", storySchema);
+const Story = mongoose.model<StorySchemaDoc>('Story', storySchema);
 
 export default Story;

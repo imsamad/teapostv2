@@ -1,10 +1,10 @@
-"use client";
-import { TStorySchema } from "@/shared-lib";
-import { Container, ScrollArea } from "@radix-ui/themes";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import StoryCard from "./_StoryCards/StoryCard";
-import fetchClient from "@/lib/fetchClient";
-import { GetResponse } from "@/shared-lib/endpoints/main";
+'use client';
+import { TStorySchema } from '@/shared-lib';
+import { Container, ScrollArea } from '@radix-ui/themes';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import StoryCard from '../_StoryCards/StoryCard';
+import fetchClient from '@/lib/fetchClient';
+import { GetResponse } from '@/shared-lib/endpoints/main';
 
 const getStories = async (
   page: number,
@@ -31,19 +31,19 @@ const StoryRenderer = ({ containerHeight }: { containerHeight: number }) => {
   });
 
   const itemHeight = 132;
-  const [hasNoMore, setHasNoMore] = useState(false);
 
   const [scrollTop, setScrollTop] = useState(0);
 
-  const startIndex = Math.floor(scrollTop / itemHeight);
   const noOfItemsinView = Math.ceil(containerHeight / itemHeight);
-
+  const startIndex = Math.floor(scrollTop / itemHeight);
   const endIndex = Math.min(startIndex + noOfItemsinView, stories.length);
 
   const limit = noOfItemsinView * 4;
 
   const visibleItems = stories.slice(startIndex, endIndex);
+  const [hasNoMore, setHasNoMore] = useState(false);
 
+  // intial fetch
   useEffect(() => {
     if (!limit) return;
     (async () => {
@@ -55,6 +55,7 @@ const StoryRenderer = ({ containerHeight }: { containerHeight: number }) => {
       } catch (err) {}
     })();
   }, [limit]);
+
   const containerRef = useRef<any>();
 
   const handleScroll = useCallback(() => {
@@ -99,9 +100,9 @@ const StoryRenderer = ({ containerHeight }: { containerHeight: number }) => {
 
   useEffect(() => {
     const conatinerDiv = containerRef.current;
-    conatinerDiv.addEventListener("scroll", throttleHandleScroll);
+    conatinerDiv.addEventListener('scroll', throttleHandleScroll);
     return () => {
-      conatinerDiv?.removeEventListener("scroll", throttleHandleScroll);
+      conatinerDiv?.removeEventListener('scroll', throttleHandleScroll);
     };
   }, []);
 
@@ -122,7 +123,7 @@ const StoryRenderer = ({ containerHeight }: { containerHeight: number }) => {
         >
           <div
             style={{
-              position: "relative",
+              position: 'relative',
               height: `${visibleItems.length * itemHeight}px`,
               width: `100%`,
               top: `${startIndex * itemHeight}px`,
@@ -135,7 +136,7 @@ const StoryRenderer = ({ containerHeight }: { containerHeight: number }) => {
           <div style={{ height: `${invisibleItemsHeight}px` }} />
 
           <small className="text-center italic block relative bottom-0">
-            {hasNoMore ? "The End" : "Loading..."}
+            {hasNoMore ? 'The End' : 'Loading...'}
           </small>
         </div>
       </Container>

@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import Story from "../../models/Story";
-import advancePagination from "../../middlewares/advancePagination";
+import { Request, Response } from 'express';
+import Story from '../../models/Story';
+import advancePagination from '../../middlewares/advancePagination';
 
 // @desc    Get stories
 // @route   GET /stories
@@ -13,7 +13,7 @@ const getStories = async (req: Request, res: Response) => {
       isPublished: true,
       isPublishedByAdmin: true,
     },
-    regExFields: ["title", "description", "seoKeyword"],
+    regExFields: ['title', 'description', 'seoKeyword'],
   })(req, res);
 };
 export default getStories;

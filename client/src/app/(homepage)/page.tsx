@@ -1,7 +1,7 @@
-import Wrapper from "./StoryRenderer/Wrapper";
+import StoryRenderer from './StoryRenderer';
 
 const HomePage = async () => {
-  return <Wrapper />;
+  return <StoryRenderer />;
 };
 
 export default HomePage;
